@@ -9,7 +9,7 @@ export const addUserTodo = async (todo: any) => {
   todo.id = uuidv4();
 
   const res = await fetch_helper({
-    url: 'http://localhost:3000/api/todo',
+    url: '/api/todo',
     body: todo,
     method: 'POST'
   });

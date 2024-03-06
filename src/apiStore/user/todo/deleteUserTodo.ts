@@ -7,7 +7,7 @@ export const deleteUserTodo = async (id: string) => {
   }
 
   const res = await fetch_helper({
-    url: `http://localhost:3000/api/todo/${id}`,
+    url: `/api/todo/${id}`,
     method: 'DELETE'
   });
   // const res = await fetch(`http://localhost:3000/api/todo/${id}`, {

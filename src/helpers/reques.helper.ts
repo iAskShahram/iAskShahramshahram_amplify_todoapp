@@ -54,7 +54,7 @@ export const fetch_helper = ({
   };
 
   if (method in ['GET', 'DELETE']) {
-    return fetch(url, {
+    return fetch(process.env.NEXT_PUBLIC_SERVER_URL + url, {
       headers
     });
   }

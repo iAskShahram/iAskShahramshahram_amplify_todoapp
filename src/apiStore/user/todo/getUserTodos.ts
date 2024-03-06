@@ -2,7 +2,7 @@ import { fetch_helper } from '@/helpers/reques.helper';
 
 export const getUserTodos = async () => {
   const res = await fetch_helper({
-    url: 'http://localhost:3000/api/todo',
+    url: '/api/todo',
     method: 'GET'
   });
   // const res = await fetch('http://localhost:3000/api/todo');
