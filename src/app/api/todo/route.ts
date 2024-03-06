@@ -1,7 +1,8 @@
 import { glClient } from '@/apiStore/graphqlClient';
 import * as mutations from '@/graphql/mutations';
 import * as queries from '@/graphql/queries';
-import { ErrorApiResponse, SuccessApiResponse } from '@/helpers/reques.helper';
+import { ErrorApiResponse, SuccessApiResponse } from '@/helpers/request.helper';
+import createError from 'http-errors';
 
 async function addOne(todo: any) {
   return await glClient.graphql({
@@ -10,26 +11,37 @@ async function addOne(todo: any) {
       input: {
         id: todo.id,
         name: todo.name,
-        description: todo.description
+        description: todo.description,
+        userId: todo.userId,
+        image: todo.image
       }
     }
   });
 }
 
-async function getOne(id: string) {
+export async function getOne({ id }: { id: string }) {
   return await glClient.graphql({
     query: queries.getTodo,
     variables: { id }
   });
 }
 
-async function getAll() {
+async function getAll({ userId }: { userId: string }) {
   return await glClient.graphql({
-    query: queries.listTodos
+    query: queries.listTodos,
+    variables: {
+      filter: {
+        userId: {
+          eq: userId
+        }
+      }
+    }
   });
 }
 
 async function POST(req: Request) {
+  const uId = req.headers.get('Authorization')?.split(' ')?.[1];
+
   try {
     // add a new todo
     const todo = await req.json();
@@ -37,6 +49,7 @@ async function POST(req: Request) {
       return;
     }
 
+    todo.userId = uId;
     const resObject = await addOne(todo);
 
     return SuccessApiResponse(200, { todo: resObject }, 'Todos added');
@@ -47,16 +60,21 @@ async function POST(req: Request) {
 }
 
 async function GET(req: Request) {
+  const uId = req.headers.get('Authorization')?.split(' ')?.[1];
+
+  // console.log({ uId });
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
 
     let todos: any = {};
 
-    if (id) {
-      todos = await getOne(id);
+    if (id?.length) {
+      todos = await getOne({ id });
+      // if(todos?)
+      console.log('fetchedSingle :: ', { todos });
     } else {
-      todos = await getAll();
+      todos = await getAll({ userId: String(uId) });
       todos = todos?.data.listTodos.items;
     }
 

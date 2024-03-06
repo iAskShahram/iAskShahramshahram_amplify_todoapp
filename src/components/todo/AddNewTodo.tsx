@@ -2,10 +2,19 @@
 
 import { CreateTodoInput } from '@/API';
 import { addUserTodo } from '@/apiStore/user/todo/addUserTodo';
-import { Button, TextField } from '@mui/material';
+import {
+  Button,
+  ImageList,
+  ImageListItem,
+  Input,
+  TextField
+} from '@mui/material';
 import Box from '@mui/material/Box';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { toast } from 'sonner';
+import { uploadData } from 'aws-amplify/storage';
+import { v4 as uuidv4 } from 'uuid';
+import { useUser } from '@/context/UserContext';
 
 const AddNewTodo = ({
   setRr
@@ -14,8 +23,12 @@ const AddNewTodo = ({
 }) => {
   const [todo, setTodo] = useState<CreateTodoInput>({
     name: '',
-    description: ''
+    description: '',
+    userId: '',
+    image: ''
   });
+  const [imagePath, setImagePath] = useState<any>('');
+  const [previewPath, setPreviewPath] = useState('');
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
     setTodo((prev) => {
@@ -28,18 +41,54 @@ const AddNewTodo = ({
 
   const handleSubmit = async () => {
     try {
-      const addedTodo = await addUserTodo(todo);
+      if (!imagePath?.name) {
+        toast.info('Uplaod an image');
+        return;
+      }
+      if (!todo.name || !todo.description) {
+        toast.info('Some missing feilds are required');
+        return;
+      }
+
+      const extLen = imagePath.name.split('.');
+      const ext = extLen[extLen.length - 1];
+      if (!['png', 'jpeg', 'jpg'].includes(ext)) {
+        toast.info('Only images are allowed');
+        toast.dismiss();
+        return;
+      }
+
+      toast.loading('Loading ...');
+      const result = await uploadData({
+        key: uuidv4() + '.' + ext,
+        data: imagePath
+      }).result;
+
+      const _todo = {
+        ...todo,
+        image: result.key
+      };
+
+      const addedTodo = await addUserTodo(_todo);
 
       setTodo({
         name: '',
-        description: ''
+        description: '',
+        userId: '',
+        image: ''
       });
       setRr(true);
-      console.log({ addedTodo });
       toast.success(addedTodo?.message || 'Success');
     } catch (error: any) {
+      toast.dismiss();
       toast.error(error.message || 'Something went wrong');
+    } finally {
+      toast.dismiss();
     }
+  };
+
+  const handleImgChange = (e: any) => {
+    setImagePath(e.target.files[0]);
   };
 
   return (
@@ -74,6 +123,7 @@ const AddNewTodo = ({
           onChange={handleChange}
           multiline
         />
+        <Input type='file' onChange={handleImgChange} />
       </Box>
 
       <Box>
@@ -81,6 +131,17 @@ const AddNewTodo = ({
           Submit
         </Button>
       </Box>
+
+      {/* <ImageList sx={{ width: 100, height: 100 }} cols={1} rowHeight={164}>
+        <ImageListItem>
+          <img
+            // srcSet={`${pImgP}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+            src={previewPath}
+            alt={`item.alt`}
+            loading='lazy'
+          />
+        </ImageListItem>
+      </ImageList> */}
     </Box>
   );
 };

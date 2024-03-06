@@ -16,6 +16,8 @@ export const createTodo = /* GraphQL */ `mutation CreateTodo(
     id
     name
     description
+    userId
+    image
     createdAt
     updatedAt
     __typename
@@ -33,6 +35,8 @@ export const updateTodo = /* GraphQL */ `mutation UpdateTodo(
     id
     name
     description
+    userId
+    image
     createdAt
     updatedAt
     __typename
@@ -50,6 +54,8 @@ export const deleteTodo = /* GraphQL */ `mutation DeleteTodo(
     id
     name
     description
+    userId
+    image
     createdAt
     updatedAt
     __typename

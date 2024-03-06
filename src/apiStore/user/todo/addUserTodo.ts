@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { fetch_helper } from '@/helpers/reques.helper';
+import { fetch_helper } from '@/helpers/request.helper';
 
 export const addUserTodo = async (todo: any) => {
   if (!todo) {

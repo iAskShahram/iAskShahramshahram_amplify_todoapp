@@ -1,0 +1,16 @@
+{
+  "resourceName": "shahramstorage",
+  "policyUUID": "f2e5d0f8",
+  "bucketName": "shahramstoragebucket",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Trigger40cf84c1",
+  "groupAccess": {}
+}

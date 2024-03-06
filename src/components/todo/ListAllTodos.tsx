@@ -1,10 +1,10 @@
 'use client';
 
-import { Box, Button } from '@mui/material';
-
+import { Box, Button, ImageList, ImageListItem } from '@mui/material';
 import { getUserTodos, deleteUserTodo } from '@/apiStore/user/todo';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import { useUser } from '@/context/UserContext';
 
 function ListAllTodos({
   rr,
@@ -14,6 +14,7 @@ function ListAllTodos({
   setRr: Dispatch<SetStateAction<boolean>>;
 }) {
   const [todos, setTodos] = useState([]);
+  const { user_c } = useUser();
 
   useEffect(() => {
     fetchTodos();
@@ -26,12 +27,21 @@ function ListAllTodos({
   });
 
   const fetchTodos = async () => {
-    const todos = await getUserTodos();
-    setTodos(todos?.data.todos);
+    toast.loading('loading ...');
+
+    try {
+      const todos = await getUserTodos({});
+      setTodos(todos?.data?.todos);
+    } catch (err) {
+      toast.error('Failed to fetch todos.');
+    } finally {
+      toast.dismiss();
+    }
   };
 
   const handleDelete = async (id: string) => {
     if (!id?.length) return;
+    toast.loading('loading ...');
 
     try {
       const res = await deleteUserTodo(id);
@@ -39,7 +49,8 @@ function ListAllTodos({
       fetchTodos();
     } catch (err) {
       toast.error('Failed to delete.');
-      console.log({ err });
+    } finally {
+      toast.dismiss();
     }
   };
 
@@ -59,7 +70,20 @@ function ListAllTodos({
               }}>
               <Box>
                 name: {todo?.name} <br />
-                description: {todo?.description}
+                description: {todo?.description} <br />
+                userId: {todo?.userId}
+                <ImageList
+                  sx={{ width: 100, height: 100 }}
+                  cols={1}
+                  rowHeight={164}>
+                  <ImageListItem>
+                    <img
+                      src={`${process.env.NEXT_PUBLIC_aws_bucket_prefix}${todo?.image}`}
+                      alt={`item.alt`}
+                      loading='lazy'
+                    />
+                  </ImageListItem>
+                </ImageList>
               </Box>
               <Box
                 sx={{
@@ -69,8 +93,8 @@ function ListAllTodos({
                   delete
                 </Button>
               </Box>
+              <br />
             </Box>
-            <br />
           </>
         ))}
     </Box>

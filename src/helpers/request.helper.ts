@@ -50,7 +50,7 @@ export const fetch_helper = ({
   let headers = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    // Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user')!)?.userId
+    'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user') || '{}')?.userId
   };
 
   if (method in ['GET', 'DELETE']) {

@@ -1,8 +1,17 @@
-import { ErrorApiResponse, SuccessApiResponse } from '@/helpers/reques.helper';
+import { ErrorApiResponse, SuccessApiResponse } from '@/helpers/request.helper';
 import { glClient } from '@/apiStore/graphqlClient';
 import * as mutations from '@/graphql/mutations';
+import { getOne } from '@/app/api/todo/route';
+import createHttpError from 'http-errors';
 
-async function deleteOne(id: string) {
+async function deleteOne({ id, userId }: { userId: string; id: string }) {
+  const todo = await getOne({ id });
+
+  // validate if it is the same user's else throw error
+  if (todo.data.getTodo?.userId != userId) {
+    throw createHttpError.Unauthorized();
+  }
+
   return await glClient.graphql({
     query: mutations.deleteTodo,
     variables: {
@@ -14,22 +23,19 @@ async function deleteOne(id: string) {
 }
 
 async function DELETE(req: Request) {
+  const uId: string = req.headers.get('Authorization')?.split(' ')?.[1]!;
+
   try {
     const splits = req.url?.split('todo/')!;
     const id = splits[splits.length - 1];
 
-    console.log({ id });
     if (!id) {
       return;
     }
 
-    const resObject = await deleteOne(id);
+    const resObject = await deleteOne({ userId: uId, id });
 
-    return SuccessApiResponse(
-      200,
-      { todo: resObject },
-      'Todos deleted'
-    );
+    return SuccessApiResponse(200, { todo: resObject }, 'Todos deleted');
   } catch (error) {
     console.dir({ error }, { depth: 5 });
 
