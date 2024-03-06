@@ -1,8 +1,8 @@
 import { ErrorApiResponse, SuccessApiResponse } from '@/helpers/request.helper';
 import { glClient } from '@/apiStore/graphqlClient';
 import * as mutations from '@/graphql/mutations';
-import { getOne } from '@/app/api/todo/route';
 import createHttpError from 'http-errors';
+import { getOne } from '@/app/apiHelpers/user/todo/todo.user.helper';
 
 async function deleteOne({ id, userId }: { userId: string; id: string }) {
   const todo = await getOne({ id });

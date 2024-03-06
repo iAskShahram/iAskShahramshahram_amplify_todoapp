@@ -1,43 +1,9 @@
-import { glClient } from '@/apiStore/graphqlClient';
-import * as mutations from '@/graphql/mutations';
-import * as queries from '@/graphql/queries';
 import { ErrorApiResponse, SuccessApiResponse } from '@/helpers/request.helper';
-import createError from 'http-errors';
-
-async function addOne(todo: any) {
-  return await glClient.graphql({
-    query: mutations.createTodo,
-    variables: {
-      input: {
-        id: todo.id,
-        name: todo.name,
-        description: todo.description,
-        userId: todo.userId,
-        image: todo.image
-      }
-    }
-  });
-}
-
-export async function getOne({ id }: { id: string }) {
-  return await glClient.graphql({
-    query: queries.getTodo,
-    variables: { id }
-  });
-}
-
-async function getAll({ userId }: { userId: string }) {
-  return await glClient.graphql({
-    query: queries.listTodos,
-    variables: {
-      filter: {
-        userId: {
-          eq: userId
-        }
-      }
-    }
-  });
-}
+import {
+  addOne,
+  getAll,
+  getOne
+} from '@/app/apiHelpers/user/todo/todo.user.helper';
 
 async function POST(req: Request) {
   const uId = req.headers.get('Authorization')?.split(' ')?.[1];
@@ -89,4 +55,4 @@ async function GET(req: Request) {
   }
 }
 
-export { POST, GET };
+export { GET, POST };
