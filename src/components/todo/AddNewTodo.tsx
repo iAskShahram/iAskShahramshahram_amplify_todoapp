@@ -35,7 +35,8 @@ const AddNewTodo = ({
         description: ''
       });
       setRr(true);
-      toast.success(addedTodo.message || 'Success');
+      console.log({ addedTodo });
+      toast.success(addedTodo?.message || 'Success');
     } catch (error: any) {
       toast.error(error.message || 'Something went wrong');
     }

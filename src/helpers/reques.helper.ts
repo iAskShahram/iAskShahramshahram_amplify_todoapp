@@ -48,9 +48,9 @@ export const fetch_helper = ({
   method: 'GET' | 'POST' | 'DELETE' | 'PUT';
 }): Promise<Response> => {
   let headers = {
-    Accept: 'application/json',
+    'Accept': 'application/json',
     'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user')!)?.userId
+    // Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user')!)?.userId
   };
 
   if (method in ['GET', 'DELETE']) {

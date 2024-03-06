@@ -27,7 +27,7 @@ function ListAllTodos({
 
   const fetchTodos = async () => {
     const todos = await getUserTodos();
-    setTodos(todos.data.todos);
+    setTodos(todos?.data.todos);
   };
 
   const handleDelete = async (id: string) => {
@@ -45,7 +45,7 @@ function ListAllTodos({
 
   return (
     <Box>
-      <h1>User's Added todos (count: {todos.length || 0})</h1>
+      <h1>User's Added todos (count: {todos?.length || 0})</h1>
       {todos &&
         todos?.map((todo: any, i: number) => (
           <>

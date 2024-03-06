@@ -37,7 +37,6 @@ async function POST(req: Request) {
       return;
     }
 
-    console.log({ todo });
     const resObject = await addOne(todo);
 
     return SuccessApiResponse(200, { todo: resObject }, 'Todos added');
@@ -52,7 +51,7 @@ async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
 
-    let todos = {};
+    let todos: any = {};
 
     if (id) {
       todos = await getOne(id);
