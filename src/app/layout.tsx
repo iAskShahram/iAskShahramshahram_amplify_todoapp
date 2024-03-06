@@ -9,7 +9,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import appTheme from '@/theme/theme';
 import { Toaster } from 'sonner';
-// import { UserContextProvider } from '@/context/UserContext';
+import { UserContextProvider } from '@/context/UserContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,9 +22,9 @@ function RootLayout({
     <html lang='en'>
       <ThemeProvider theme={appTheme}>
         <body className={inter.className}>
-          {/* <UserContextProvider> */}
+          <UserContextProvider>
             <Box component={'main'}>{children}</Box>
-          {/* </UserContextProvider> */}
+          </UserContextProvider>
           <Toaster richColors />
         </body>
       </ThemeProvider>

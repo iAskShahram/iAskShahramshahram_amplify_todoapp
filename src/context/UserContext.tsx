@@ -39,12 +39,10 @@ interface IApp {
 }
 
 export function UserContextProvider({ children }: IApp) {
-  const [user_c, setUser_c] = useState(
-    JSON.parse(localStorage.getItem('user')!) || {
-      userId: '',
-      username: ''
-    }
-  );
+  const [user_c, setUser_c] = useState({
+    userId: '',
+    username: ''
+  });
 
   function setUser_cl(_user: IUser) {
     setUser_c(_user);
