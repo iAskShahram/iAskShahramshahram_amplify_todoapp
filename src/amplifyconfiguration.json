@@ -3,7 +3,7 @@
   "aws_appsync_graphqlEndpoint": "https://fjedytxv7nfdpdidetyrkuau64.appsync-api.eu-north-1.amazonaws.com/graphql",
   "aws_appsync_region": "eu-north-1",
   "aws_appsync_authenticationType": "API_KEY",
-  "aws_appsync_apiKey": "",
+  "aws_appsync_apiKey": "da2-t425gwmwbvclzjztbqeegkeorq",
   "aws_cognito_identity_pool_id": "eu-north-1:389f54e9-79ac-478a-a24b-a9ae9fb6ecfa",
   "aws_cognito_region": "eu-north-1",
   "aws_user_pools_id": "eu-north-1_TWWkrhs0S",

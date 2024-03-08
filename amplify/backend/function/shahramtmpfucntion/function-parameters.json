@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "api": {
+      "shahramtodo": [
+        "Query",
+        "Mutation",
+        "Subscription"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

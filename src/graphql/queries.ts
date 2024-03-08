@@ -8,6 +8,20 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getTodoCountByUserId = /* GraphQL */ `query GetTodoCountByUserId($userId: String!) {
+  getTodoCountByUserId(userId: $userId) {
+    id
+    userId
+    count
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetTodoCountByUserIdQueryVariables,
+  APITypes.GetTodoCountByUserIdQuery
+>;
 export const getTodo = /* GraphQL */ `query GetTodo($id: ID!) {
   getTodo(id: $id) {
     id
@@ -42,3 +56,39 @@ export const listTodos = /* GraphQL */ `query ListTodos(
   }
 }
 ` as GeneratedQuery<APITypes.ListTodosQueryVariables, APITypes.ListTodosQuery>;
+export const getTodoCount = /* GraphQL */ `query GetTodoCount($id: ID!) {
+  getTodoCount(id: $id) {
+    id
+    userId
+    count
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetTodoCountQueryVariables,
+  APITypes.GetTodoCountQuery
+>;
+export const listTodoCounts = /* GraphQL */ `query ListTodoCounts(
+  $filter: ModelTodoCountFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTodoCounts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      userId
+      count
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListTodoCountsQueryVariables,
+  APITypes.ListTodoCountsQuery
+>;

@@ -65,3 +65,54 @@ export const deleteTodo = /* GraphQL */ `mutation DeleteTodo(
   APITypes.DeleteTodoMutationVariables,
   APITypes.DeleteTodoMutation
 >;
+export const createTodoCount = /* GraphQL */ `mutation CreateTodoCount(
+  $input: CreateTodoCountInput!
+  $condition: ModelTodoCountConditionInput
+) {
+  createTodoCount(input: $input, condition: $condition) {
+    id
+    userId
+    count
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateTodoCountMutationVariables,
+  APITypes.CreateTodoCountMutation
+>;
+export const updateTodoCount = /* GraphQL */ `mutation UpdateTodoCount(
+  $input: UpdateTodoCountInput!
+  $condition: ModelTodoCountConditionInput
+) {
+  updateTodoCount(input: $input, condition: $condition) {
+    id
+    userId
+    count
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateTodoCountMutationVariables,
+  APITypes.UpdateTodoCountMutation
+>;
+export const deleteTodoCount = /* GraphQL */ `mutation DeleteTodoCount(
+  $input: DeleteTodoCountInput!
+  $condition: ModelTodoCountConditionInput
+) {
+  deleteTodoCount(input: $input, condition: $condition) {
+    id
+    userId
+    count
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteTodoCountMutationVariables,
+  APITypes.DeleteTodoCountMutation
+>;

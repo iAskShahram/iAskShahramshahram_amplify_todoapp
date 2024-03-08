@@ -83,6 +83,51 @@ export type DeleteTodoInput = {
   id: string,
 };
 
+export type CreateTodoCountInput = {
+  id?: string | null,
+  userId: string,
+  count: number,
+};
+
+export type ModelTodoCountConditionInput = {
+  userId?: ModelStringInput | null,
+  count?: ModelIntInput | null,
+  and?: Array< ModelTodoCountConditionInput | null > | null,
+  or?: Array< ModelTodoCountConditionInput | null > | null,
+  not?: ModelTodoCountConditionInput | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type TodoCount = {
+  __typename: "TodoCount",
+  id: string,
+  userId: string,
+  count: number,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateTodoCountInput = {
+  id: string,
+  userId?: string | null,
+  count?: number | null,
+};
+
+export type DeleteTodoCountInput = {
+  id: string,
+};
+
 export type ModelTodoFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -113,6 +158,21 @@ export type ModelIDInput = {
 export type ModelTodoConnection = {
   __typename: "ModelTodoConnection",
   items:  Array<Todo | null >,
+  nextToken?: string | null,
+};
+
+export type ModelTodoCountFilterInput = {
+  id?: ModelIDInput | null,
+  userId?: ModelStringInput | null,
+  count?: ModelIntInput | null,
+  and?: Array< ModelTodoCountFilterInput | null > | null,
+  or?: Array< ModelTodoCountFilterInput | null > | null,
+  not?: ModelTodoCountFilterInput | null,
+};
+
+export type ModelTodoCountConnection = {
+  __typename: "ModelTodoCountConnection",
+  items:  Array<TodoCount | null >,
   nextToken?: string | null,
 };
 
@@ -154,6 +214,26 @@ export type ModelSubscriptionStringInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionTodoCountFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  userId?: ModelSubscriptionStringInput | null,
+  count?: ModelSubscriptionIntInput | null,
+  and?: Array< ModelSubscriptionTodoCountFilterInput | null > | null,
+  or?: Array< ModelSubscriptionTodoCountFilterInput | null > | null,
+};
+
+export type ModelSubscriptionIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
 };
 
 export type CreateTodoMutationVariables = {
@@ -210,6 +290,69 @@ export type DeleteTodoMutation = {
   } | null,
 };
 
+export type CreateTodoCountMutationVariables = {
+  input: CreateTodoCountInput,
+  condition?: ModelTodoCountConditionInput | null,
+};
+
+export type CreateTodoCountMutation = {
+  createTodoCount?:  {
+    __typename: "TodoCount",
+    id: string,
+    userId: string,
+    count: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateTodoCountMutationVariables = {
+  input: UpdateTodoCountInput,
+  condition?: ModelTodoCountConditionInput | null,
+};
+
+export type UpdateTodoCountMutation = {
+  updateTodoCount?:  {
+    __typename: "TodoCount",
+    id: string,
+    userId: string,
+    count: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteTodoCountMutationVariables = {
+  input: DeleteTodoCountInput,
+  condition?: ModelTodoCountConditionInput | null,
+};
+
+export type DeleteTodoCountMutation = {
+  deleteTodoCount?:  {
+    __typename: "TodoCount",
+    id: string,
+    userId: string,
+    count: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type GetTodoCountByUserIdQueryVariables = {
+  userId: string,
+};
+
+export type GetTodoCountByUserIdQuery = {
+  getTodoCountByUserId?:  {
+    __typename: "TodoCount",
+    id: string,
+    userId: string,
+    count: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetTodoQueryVariables = {
   id: string,
 };
@@ -243,6 +386,42 @@ export type ListTodosQuery = {
       description?: string | null,
       userId: string,
       image: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetTodoCountQueryVariables = {
+  id: string,
+};
+
+export type GetTodoCountQuery = {
+  getTodoCount?:  {
+    __typename: "TodoCount",
+    id: string,
+    userId: string,
+    count: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListTodoCountsQueryVariables = {
+  filter?: ModelTodoCountFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListTodoCountsQuery = {
+  listTodoCounts?:  {
+    __typename: "ModelTodoCountConnection",
+    items:  Array< {
+      __typename: "TodoCount",
+      id: string,
+      userId: string,
+      count: number,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -296,6 +475,51 @@ export type OnDeleteTodoSubscription = {
     description?: string | null,
     userId: string,
     image: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateTodoCountSubscriptionVariables = {
+  filter?: ModelSubscriptionTodoCountFilterInput | null,
+};
+
+export type OnCreateTodoCountSubscription = {
+  onCreateTodoCount?:  {
+    __typename: "TodoCount",
+    id: string,
+    userId: string,
+    count: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateTodoCountSubscriptionVariables = {
+  filter?: ModelSubscriptionTodoCountFilterInput | null,
+};
+
+export type OnUpdateTodoCountSubscription = {
+  onUpdateTodoCount?:  {
+    __typename: "TodoCount",
+    id: string,
+    userId: string,
+    count: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteTodoCountSubscriptionVariables = {
+  filter?: ModelSubscriptionTodoCountFilterInput | null,
+};
+
+export type OnDeleteTodoCountSubscription = {
+  onDeleteTodoCount?:  {
+    __typename: "TodoCount",
+    id: string,
+    userId: string,
+    count: number,
     createdAt: string,
     updatedAt: string,
   } | null,

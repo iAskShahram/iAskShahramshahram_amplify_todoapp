@@ -56,3 +56,45 @@ export const onDeleteTodo = /* GraphQL */ `subscription OnDeleteTodo($filter: Mo
   APITypes.OnDeleteTodoSubscriptionVariables,
   APITypes.OnDeleteTodoSubscription
 >;
+export const onCreateTodoCount = /* GraphQL */ `subscription OnCreateTodoCount($filter: ModelSubscriptionTodoCountFilterInput) {
+  onCreateTodoCount(filter: $filter) {
+    id
+    userId
+    count
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateTodoCountSubscriptionVariables,
+  APITypes.OnCreateTodoCountSubscription
+>;
+export const onUpdateTodoCount = /* GraphQL */ `subscription OnUpdateTodoCount($filter: ModelSubscriptionTodoCountFilterInput) {
+  onUpdateTodoCount(filter: $filter) {
+    id
+    userId
+    count
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateTodoCountSubscriptionVariables,
+  APITypes.OnUpdateTodoCountSubscription
+>;
+export const onDeleteTodoCount = /* GraphQL */ `subscription OnDeleteTodoCount($filter: ModelSubscriptionTodoCountFilterInput) {
+  onDeleteTodoCount(filter: $filter) {
+    id
+    userId
+    count
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteTodoCountSubscriptionVariables,
+  APITypes.OnDeleteTodoCountSubscription
+>;

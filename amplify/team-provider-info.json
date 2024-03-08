@@ -22,6 +22,10 @@
         "S3Trigger40cf84c1": {
           "deploymentBucketName": "amplify-shahramtodo-dev-182817-deployment",
           "s3Key": "amplify-builds/S3Trigger40cf84c1-62364131596c384d3644-build.zip"
+        },
+        "shahramtmpfucntion": {
+          "deploymentBucketName": "amplify-shahramtodo-dev-182817-deployment",
+          "s3Key": "amplify-builds/shahramtmpfucntion-4b6f517758336a534a31-build.zip"
         }
       },
       "storage": {

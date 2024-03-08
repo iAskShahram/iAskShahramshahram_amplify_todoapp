@@ -38,7 +38,7 @@ async function GET(req: Request) {
     if (id?.length) {
       todos = await getOne({ id });
       // if(todos?)
-      console.log('fetchedSingle :: ', { todos });
+      // console.log('fetchedSingle :: ', { todos });
     } else {
       todos = await getAll({ userId: String(uId) });
       todos = todos?.data.listTodos.items;
@@ -56,3 +56,5 @@ async function GET(req: Request) {
 }
 
 export { GET, POST };
+
+

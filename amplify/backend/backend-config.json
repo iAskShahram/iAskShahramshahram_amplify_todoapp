@@ -50,6 +50,30 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "shahramtmpfucntion": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "shahramtodo"
+        },
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "shahramtodo"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -66,6 +90,22 @@
         {
           "category": "function",
           "resourceName": "S3Trigger40cf84c1"
+        }
+      ]
+    },
+    "AMPLIFY_function_shahramtmpfucntion_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "shahramtmpfucntion"
+        }
+      ]
+    },
+    "AMPLIFY_function_shahramtmpfucntion_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "shahramtmpfucntion"
         }
       ]
     }
